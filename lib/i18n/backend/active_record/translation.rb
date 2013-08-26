@@ -57,7 +57,7 @@ module I18n
 
         class << self
           def locale(locale)
-            scope :locale, -> { where(:locale: locale.to_s) }
+            scope :locale, -> { where(locale: locale.to_s) }
           end
 
           def lookup(keys, *separator)
