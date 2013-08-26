@@ -58,6 +58,7 @@ module I18n
         class << self
           def locale(locale)
             scope :locale, -> { where(locale: locale.to_s) }
+            self
           end
 
           def lookup(keys, *separator)
@@ -71,6 +72,7 @@ module I18n
 
             namespace = "#{keys.last}#{I18n::Backend::Flatten::FLATTEN_SEPARATOR}%"
             scope :keys_and_namespaces, -> { where(["#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace]) }
+            self
           end
 
           def available_locales
