@@ -57,7 +57,7 @@ module I18n
 
         class << self
           def locale(the_locale)
-            scope :all, -> { where(locale: the_locale.to_s) }
+            scope :for_locale, ->(the_locale) { where(locale: the_locale.to_s) }
             self
           end
 
@@ -71,8 +71,8 @@ module I18n
             end
 
             namespace = "#{keys.last}#{I18n::Backend::Flatten::FLATTEN_SEPARATOR}%"
-            scope :all, -> { where(["#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace]) }
-            self.all
+            scope :with_keys, -> { where(["#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace]) }
+            Translation.for_locale.with_keys
           end
 
           def available_locales
