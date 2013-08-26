@@ -56,8 +56,8 @@ module I18n
         serialize :interpolations, Array
 
         class << self
-          def locale(locale)
-            scope :locale, -> { where(locale: locale.to_s) }
+          def locale(the_locale)
+            scope :all, -> { where(locale: the_locale.to_s) }
             self
           end
 
@@ -71,8 +71,8 @@ module I18n
             end
 
             namespace = "#{keys.last}#{I18n::Backend::Flatten::FLATTEN_SEPARATOR}%"
-            scope :keys_and_namespaces, -> { where(["#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace]) }
-            self
+            scope :all, -> { where(["#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace]) }
+            self.all
           end
 
           def available_locales
