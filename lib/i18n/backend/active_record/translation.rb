@@ -57,7 +57,7 @@ module I18n
 
         class << self
           def locale(the_locale)
-            scope :for_locale, ->(the_locale) { where(locale: the_locale.to_s) }
+            scope :for_locale, -> { where(locale: the_locale.to_s) }
             self
           end
 
